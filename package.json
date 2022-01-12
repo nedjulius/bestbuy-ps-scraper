@@ -2,10 +2,9 @@
   "name": "ps-tracker",
   "version": "1.0.0",
   "description": "CRON to track PS5 availability",
-  "main": "index.js",
+  "main": "start-scraper.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node start-scraper.js"
   },
   "author": "nedjulius",
   "license": "ISC",
