@@ -49,5 +49,6 @@ const cronJob = cron.schedule('*/30 * * * *', async () => {
     }
   } catch (error) {
     await sendErrorNotificationMail(error)
+    cronJob.stop()
   }
 })
