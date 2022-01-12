@@ -1,4 +1,7 @@
-const {sendNotificationEmail} = require('./send-notification-email')
+const {
+  sendFoundNotificationMail,
+  sendErrorNotificationMail,
+} = require('./mailer')
 const {BESTBUY_PS_DIGITAL_URL} = require('./constants')
 const cron = require('node-cron')
 const puppeteer = require('puppeteer')
@@ -35,12 +38,16 @@ const scrapeForBuyButtonText = async () => {
 }
 
 const cronJob = cron.schedule('*/30 * * * *', async () => {
-  const buyButtonText = await scrapeForBuyButtonText()
+  try {
+    const buyButtonText = await scrapeForBuyButtonText()
 
-  if (buyButtonText !== 'Sold Out') {
-    await sendNotificationEmail()
-    cronJob.stop()
-  } else {
-    console.log('Not found... Keep on working!')
+    if (buyButtonText !== 'Sold Out') {
+      await sendFoundNotificationMail()
+      cronJob.stop()
+    } else {
+      console.log('Not found... Keep on working!')
+    }
+  } catch (error) {
+    await sendErrorNotificationMail(error)
   }
 })
