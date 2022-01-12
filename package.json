@@ -1,0 +1,20 @@
+{
+  "name": "ps-tracker",
+  "version": "1.0.0",
+  "description": "CRON to track PS5 availability",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "nedjulius",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "cheerio": "*",
+    "dotenv": "^11.0.0",
+    "node-cron": "^3.0.0",
+    "nodemailer": "^6.7.2",
+    "puppeteer": "^13.0.1"
+  }
+}
