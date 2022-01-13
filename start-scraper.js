@@ -3,6 +3,7 @@ const {
   sendErrorNotificationMail,
 } = require('./mailer')
 const {BESTBUY_PS_DIGITAL_URL} = require('./constants')
+const cron = require('node-cron')
 const axios = require('axios')
 const cheerio = require('cheerio')
 
@@ -13,18 +14,23 @@ const scrapeForBuyButtonText = async () => {
   return $('.fulfillment-add-to-cart-button').text()
 }
 
-const cronJob = cron.schedule('*/30 * * * *', async () => {
-  try {
-    const buyButtonText = await scrapeForBuyButtonText()
+(async () => {
+	const text = await scrapeForBuyButtonText();
+	console.log(text)
+})()
 
-    if (buyButtonText !== 'Sold Out') {
-      await sendFoundNotificationMail()
-      cronJob.stop()
-    } else {
-      console.log('Not found... Keep on working!')
-    }
-  } catch (error) {
-    await sendErrorNotificationMail(error)
-    cronJob.stop()
-  }
-})
+// const cronJob = cron.schedule('*/1 * * * *', async () => {
+//   try {
+//     const buyButtonText = await scrapeForBuyButtonText()
+
+//     if (buyButtonText !== 'Sold Out') {
+//       await sendFoundNotificationMail()
+//       cronJob.stop()
+//     } else {
+//       console.log('Not found... Keep on working!')
+//     }
+//   } catch (error) {
+//     await sendErrorNotificationMail(error)
+//     cronJob.stop()
+//   }
+// })
