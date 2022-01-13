@@ -3,14 +3,14 @@ const {
   sendErrorNotificationMail,
 } = require('./mailer')
 const {BESTBUY_PS_DIGITAL_URL} = require('./constants')
-const axios = require('axios');
-const cheerio = require('cheerio');
+const axios = require('axios')
+const cheerio = require('cheerio')
 
 const scrapeForBuyButtonText = async () => {
-	const {data} = await axios.get(BESTBUY_PS_DIGITAL_URL);
-	const $ = cheerio.load(data);
+  const {data} = await axios.get(BESTBUY_PS_DIGITAL_URL)
+  const $ = cheerio.load(data)
 
-	return $('.fulfillment-add-to-cart-button').text();
+  return $('.fulfillment-add-to-cart-button').text()
 }
 
 const cronJob = cron.schedule('*/30 * * * *', async () => {
